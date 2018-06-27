@@ -1,19 +1,17 @@
 /*eslint-env browser*/
 
 function playGame() {
-    
-    var good = false
-    
+    var good = false;
     //Ask for number range and check if input is number
     while (good == false) {
         while (isNaN(low)) {
             var low = parseInt(prompt("Enter a low number: "));
-            while (low < 0){
+            while (low < 0) {
                 low = parseInt(prompt("Enter a number greater than 0: "));
             }
         } while (isNaN(high)) {
             var high = parseInt(prompt("Enter a high number: "));
-            while (high > 1000){
+            while (high > 1000) {
                 high = parseInt(prompt("Enter a number less than 1000: "));
             }
         }
@@ -36,6 +34,7 @@ function playGame() {
     while (userGuess < low || userGuess > high) {
         userGuess = parseInt(prompt("Enter a guess between " + low + " and " + high));
     }
+    
     var totalGuess = 1;
     
     while (userGuess !== target) {
@@ -50,5 +49,4 @@ function playGame() {
     
     //End of game
     alert("You took " + totalGuess + " guesses to guess the number " + target);
-    
 }
