@@ -17,25 +17,27 @@ function setup() {
 function draw() {
     fill(circle.color);
     ellipse(circle.xCoor, circle.yCoor, circle.diameter);
-
+function randomColor(){
+    return [random(0,255), random(0,255), random(0,255)];
+}
     //Detect edges and bounce, change direction
     if (circle.xCoor >= 640){
-        circle.color = [random(225), random(225), random(225)]; //random color
+        circle.color = randomColor(); //random color
         circle.xSpeed = -circle.xSpeed;
         circle.xCoor += circle.xSpeed;
         circle.diameter = random(20,100); //random diameter
     }else if (circle.yCoor >= 480){
-        circle.color = [random(225), random(225), random(225)];
+        circle.color = randomColor();
         circle.ySpeed = -circle.ySpeed;
         circle.yCoor += circle.ySpeed;
         circle.diameter = random(20,100);
     }else if (circle.yCoor < 0){ //detect edge
-        circle.color = [random(225), random(225), random(225)];
+        circle.color = randomColor();
         circle.ySpeed = -circle.ySpeed;
         circle.yCoor += circle.ySpeed;
         circle.diameter = random(20,100);
     }else if (circle.xCoor < 0){
-        circle.color = [random(225), random(225), random(225)];
+        circle.color = randomColor();
         circle.xSpeed = -circle.xSpeed;
         circle.xCoor += circle.xSpeed;
         circle.diameter = random(20,100);
