@@ -1,3 +1,8 @@
+function setup() {
+    canvas = createCanvas(prompt("Enter width of canvas: "),prompt("Enter height of canvas: "));
+    frameRate(15);
+    makeCircles();
+}
 //random color
 function randomColor(){
     return [random(0,255), random(0,255), random(0,255)];
@@ -11,31 +16,39 @@ function Circle(x, y, size, color, xSpeed, ySpeed){
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
 }
-//Setup
-function setup() {
-    createCanvas(prompt("Enter width of canvas: "),prompt("Enter height of canvas: "));
-    frameRate(15);
-}
-//random number in set
-function numberSet(set){
-    var numBalls = Math.floor(Math.random() * set.length);
-    return set[numBalls];
-}
-//generates random number from set
-var balls = numberSet([2,5,9,16]);
-//creates empty list
 var circleList = [];
-//add circles to the list accoring to number from set
-for (var b = 0; b < balls; b++){
-    var circle1 = new Circle(0,0,60,[0,0,0],Math.random()*20,Math.random()*20);
-    circleList = circleList.concat([circle1]);
+
+//random number in set
+function makeCircles(){
+    //generates random number from set
+    var balls = random([2,5,9,16]);
+    //add circles to the list accoring to number from set
+    for (var b = 0; b < balls; b++){ //generates random position
+        circleList.push(new Circle(random(width),random(height),50, [0,0,0],random(10,30),random(10,30)));
+    }
 }
+
 function draw(){
     //Paints over the other balls
     background("#fae");
     for (var i = 0; i < circleList.length; i++){
         fill(circleList[i].color);
         ellipse(circleList[i].xCoor, circleList[i].yCoor, circleList[i].diameter);
+        //looping through postitions of other circles to test for collosion
+        
+        for(var x = 0; x < circleList.length; x++){
+            var dx = circleList[i].xCoor - circleList[x].xCoor;
+            var dy = circleList[i].yCoor - circleList[x].yCoor;
+            var distance = Math.sqrt(dx * dx + dy * dy); //pythangorean theorem to solve for distance between circles
+            if (distance < (circleList[i].diameter + circleList[x].diameter)/2){
+                if (circleList[i].xCoor < circleList[x].xCoor || circleList[i].xCoor > circleList[x].xCoor){ //accounting for the radius of circles
+                    circleList[i].ySpeed = -circleList[i].ySpeed;
+                }if (circleList[i].yCoor < circleList[x].yCoor || circleList[i].yCoor > circleList[x].yCoor){
+                    circleList[i].xSpeed = -circleList[i].xSpeed;
+                }
+            }
+        }
+        
         if (circleList[i].xCoor > width || circleList[i].xCoor < 0){ //if touch edge
             circleList[i].color = randomColor(); //random color
             circleList[i].xSpeed = -circleList[i].xSpeed; //change direction
