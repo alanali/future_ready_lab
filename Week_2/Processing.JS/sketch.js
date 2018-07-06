@@ -41,7 +41,7 @@ function draw(){
             var distance = Math.sqrt(dx * dx + dy * dy); //pythangorean theorem to solve for distance between circles
             if (distance < (circleList[i].diameter + circleList[x].diameter)/2){
                 if (circleList[i].xCoor < circleList[x].xCoor || circleList[i].xCoor > circleList[x].xCoor){ //accounting for the radius of circles
-                    circleList[x].xSpeed = circleList[i].ySpeed = -((circleList[i].ySpeed+circleList[x].ySpeed)/2);
+                    circleList[x].ySpeed = circleList[i].ySpeed = -((circleList[i].ySpeed+circleList[x].ySpeed)/2);
                 }if (circleList[i].yCoor < circleList[x].yCoor || circleList[i].yCoor > circleList[x].yCoor){
                     circleList[x].xSpeed = circleList[i].xSpeed = -((circleList[i].xSpeed+circleList[x].xSpeed)/2);
                 }
