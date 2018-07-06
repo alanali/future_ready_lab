@@ -18,7 +18,7 @@ function Circle(x, y, size, color, xSpeed, ySpeed){
 }
 var circleList = [];
 
-//random number in set
+//makes circles
 function makeCircles(){
     //generates random number from set
     var balls = random([2,5,9,16]);
@@ -35,16 +35,15 @@ function draw(){
         fill(circleList[i].color);
         ellipse(circleList[i].xCoor, circleList[i].yCoor, circleList[i].diameter);
         //looping through postitions of other circles to test for collosion
-        
         for(var x = 0; x < circleList.length; x++){
             var dx = circleList[i].xCoor - circleList[x].xCoor;
             var dy = circleList[i].yCoor - circleList[x].yCoor;
             var distance = Math.sqrt(dx * dx + dy * dy); //pythangorean theorem to solve for distance between circles
             if (distance < (circleList[i].diameter + circleList[x].diameter)/2){
                 if (circleList[i].xCoor < circleList[x].xCoor || circleList[i].xCoor > circleList[x].xCoor){ //accounting for the radius of circles
-                    circleList[i].ySpeed = -circleList[i].ySpeed;
+                    circleList[x].xSpeed = circleList[i].ySpeed = -((circleList[i].ySpeed+circleList[x].ySpeed)/2);
                 }if (circleList[i].yCoor < circleList[x].yCoor || circleList[i].yCoor > circleList[x].yCoor){
-                    circleList[i].xSpeed = -circleList[i].xSpeed;
+                    circleList[x].xSpeed = circleList[i].xSpeed = -((circleList[i].xSpeed+circleList[x].xSpeed)/2);
                 }
             }
         }
